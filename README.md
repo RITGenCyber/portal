@@ -1,2 +1,2 @@
 # portal
-Management portal for employee's of Metropolis General to use to keep track of patients.
+Management portal for employees of Metropolis General to use to keep track of patients.
