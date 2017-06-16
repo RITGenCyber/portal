@@ -7,7 +7,7 @@
 
 <form action="change_password.php" method="post">
 Username: <input type="text" name="name"<br>
-Password: <input type="text" name="password"><br>
+Password: <input type="password" name="password"><br>
 <input type="submit" value="Change Password" name="change">
 
 <?php
