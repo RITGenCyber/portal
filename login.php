@@ -8,6 +8,7 @@
 <form action="login.php" method="post">
 Username: <input type="text" name="name"><br>
 Password: <input type="password" name="password"><br>
+Forget your password? Click <a href="change_password.php">here</a>.<br>
 <input type="submit" value="Login" name="login">
 
 <?php
