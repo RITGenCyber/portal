@@ -1,6 +1,8 @@
 <?php include 'db.php'; ?>
 
 <html>
+<head>
+<title>Login</title>
 <body>
 
 <form action="login.php" method="post">
