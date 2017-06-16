@@ -20,7 +20,7 @@ Password: <input type="text" name="password"><br>
             . "'";
         $result = mysqli_query($db, $query);
         if (!$result) {
-            echo "Error: " . mysqli_error($db);
+            echo "<br>Error: " . mysqli_error($db);
         }
         else {
             $rowcount = mysqli_num_rows($result);
@@ -28,10 +28,10 @@ Password: <input type="text" name="password"><br>
                 $row = mysqli_fetch_row($result);
                 $_SESSION['id'] = $row[0];
                 $_SESSION['loggedin'] = 1;
-                echo "Logged in!";
+                echo "<br>Logged in!";
             }
             else {
-                echo "Invalid username or password.";
+                echo "<br>Invalid username or password.";
             }
             mysqli_free_result($result);
         }
