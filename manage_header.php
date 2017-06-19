@@ -1,5 +1,5 @@
 <?php
-    $managementLink = "<a href = 'manage.php'>Manage Users</a>"
+    $managementLink = "<a href = 'manage.php'>Manage Users</a>";
     $newUserLink = "<a href='new_user.php'>New User</a> ";
     $startDiv = "<div style='text-align:center'>";
     $endDiv = "</div>";
