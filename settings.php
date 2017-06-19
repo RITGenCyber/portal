@@ -6,7 +6,7 @@
 <?php
     require_once "db.php";
     include "header.php";
-   ?>
+?>
 
 <br><div style="text-align: center">
 <form action="settings.php" method="post">
@@ -20,13 +20,7 @@
         $row = mysqli_fetch_row($query);
         return $row[0];
     }
-    $username = queryWrapper("select username from users where id = '" .
-        $_COOKIE['id'] . "'");
-    echo "Username: <input type=\"text\" name=\"username\" value='" .
-         $username . "'><br>";
-
-    echo "Password: <input type=\"password\" name=\"password\"" . 
-        "value=\"******\"'><br>";
+    echo "Password: <input type=\"password\" name=\"password\"><br>";
 
     $email = queryWrapper("select email from users where id = '" . 
         $_COOKIE['id'] . "'");
@@ -48,9 +42,35 @@
     echo "Phone Number: <input type=\"text\" name=\"phonenumber\" value='" .
         $phoneNumber . "'><br>";
 
-    echo "<input type='submit' value='Submit'>";
+    echo "<input type='submit' value='Submit' name='submit'>";
 ?>
 </form>
+<?php
+    $db = db_connect();
+    if (!$db) {
+        echo "Error connecting to database: " . mysqli_error($db);
+    }
+    $password = mysqli_query($db, "SELECT password FROM users WHERE id = " .
+        $_COOKIE['id']);
 
+    function update_if_different($original, $new, $field) {
+        global $db;
+        if (isset($new) && !empty($new) && $new != $original) {
+            $queryString = "UPDATE users SET " . $field . "=" . "'" . 
+             $new . "'" . " WHERE id =" . $_COOKIE['id'];
+            $query = mysqli_query($db, $queryString);
+            if (!$query) {
+                echo "Error querying database: " . mysqli_error($db);
+            }
+        }
+    }
+    if (isset($_POST['submit'])) {
+        update_if_different($password, $_POST['password'], "password");
+        update_if_different($email, $_POST['email'], "email");
+        update_if_different($firstName, $_POST['firstname'], "firstName");
+        update_if_different($lastName, $_POST['lastname'], "lastName");
+        update_if_different($phoneNumber, $_POST['phonenumber'], "phoneNumber");
+    }
+?>
 </body>
-</html>
+<html>
