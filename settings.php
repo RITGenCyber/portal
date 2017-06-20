@@ -32,7 +32,7 @@
     echo "First Name: <input type=\"text\" name=\"firstname\" value='" .
         $firstName . "'><br>";
 
-    $lastName = queryWrapper("select firstName from users where id = '" .
+    $lastName = queryWrapper("select lastName from users where id = '" .
         $_COOKIE['id'] . "'");
     echo "Last Name: <input type=\"text\" name=\"lastname\" value='" .
         $lastName . "'><br>";
