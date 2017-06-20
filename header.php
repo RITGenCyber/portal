@@ -6,8 +6,15 @@
     $logOutLink = "<a href='logout.php'>Log Out</a>";
     $startDiv = "<div style='text-align:center'>";
     $endDiv = "</div>";
-    switch ($_SERVER['REQUEST_URI']) {
+    switch ($_SERVER['PHP_SELF']) {
         case "/manage.php":
+            printf("%s %s", $startDiv, $portalLink);
+            printf("%s", $settingLink);
+            printf("%s", "<strong>Manage Users</strong> ");
+            printf("%s", $newRecordLink);
+            printf("%s %s", $logOutLink, $endDiv);
+            break;
+        case "/new_user.php":
             printf("%s %s", $startDiv, $portalLink);
             printf("%s", $settingLink);
             printf("%s", "<strong>Manage Users</strong> ");
