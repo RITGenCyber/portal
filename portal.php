@@ -9,8 +9,6 @@
 
     include "header.php";
 
-    session_start();
-
     if (isset($_GET) && !empty($_GET['id'])) {
         $queryString = "DELETE FROM patients WHERE id='" . $_GET['id'] . "'";
         $query = mysqli_query($db, $queryString);
