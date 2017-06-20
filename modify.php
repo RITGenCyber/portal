@@ -46,7 +46,7 @@
         global $db;
         if (isset($new) && !empty($new) && $new != $original) {
             $queryString = "UPDATE patients SET " . $field . "=" . "'" . 
-             $new . "'" . " WHERE id =" . $_COOKIE['id'];
+             $new . "'" . " WHERE id =" . $_SESSION['id'];
             $query = mysqli_query($db, $queryString);
             if (!$query) {
                 echo "Error querying database: " . mysqli_error($db);

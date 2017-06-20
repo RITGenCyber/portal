@@ -23,22 +23,22 @@
     echo "Password: <input type=\"password\" name=\"password\"><br>";
 
     $email = queryWrapper("select email from users where id = '" . 
-        $_COOKIE['id'] . "'");
+        $_SESSION['id'] . "'");
     echo "Email: <input type=\"text\" name=\"email\" value='" .
          $email . "'><br>";
 
     $firstName = queryWrapper("select firstName from users where id = '" .
-        $_COOKIE['id'] . "'");
+        $_SESSION['id'] . "'");
     echo "First Name: <input type=\"text\" name=\"firstname\" value='" .
         $firstName . "'><br>";
 
     $lastName = queryWrapper("select lastName from users where id = '" .
-        $_COOKIE['id'] . "'");
+        $_SESSION['id'] . "'");
     echo "Last Name: <input type=\"text\" name=\"lastname\" value='" .
         $lastName . "'><br>";
 
     $phoneNumber = queryWrapper("select phoneNumber from users where id = '" .
-        $_COOKIE['id'] . "'");
+        $_SESSION['id'] . "'");
     echo "Phone Number: <input type=\"text\" name=\"phonenumber\" value='" .
         $phoneNumber . "'><br>";
 
@@ -51,13 +51,13 @@
         echo "Error connecting to database: " . mysqli_error($db);
     }
     $password = mysqli_query($db, "SELECT password FROM users WHERE id = " .
-        $_COOKIE['id']);
+        $_SESSION['id']);
 
     function update_if_different($original, $new, $field) {
         global $db;
         if (isset($new) && !empty($new) && $new != $original) {
             $queryString = "UPDATE users SET " . $field . "=" . "'" . 
-             $new . "'" . " WHERE id =" . $_COOKIE['id'];
+             $new . "'" . " WHERE id =" . $_SESSION['id'];
             $query = mysqli_query($db, $queryString);
             if (!$query) {
                 echo "Error querying database: " . mysqli_error($db);
