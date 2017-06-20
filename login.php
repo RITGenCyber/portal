@@ -1,4 +1,7 @@
-<?php include 'db.php'; ?>
+<?php 
+    include 'db.php'; 
+    session_start();
+?>
 
 <html>
 <head>
@@ -27,14 +30,18 @@ Forget your password? Click <a href="change_password.php">here</a>.<br>
             $rowcount = mysqli_num_rows($result);
             if ($rowcount > 0) {
                 $row = mysqli_fetch_row($result);
-                setcookie('id', $row[0]);
-                setcookie('loggedin', 1);
-                echo "<br>Logged in!";
+                $_SESSION['id'] = $row[0];
+                $_SESSION['loggedin'] = 1;
+//                setcookie('id', $row[0]);
+//                setcookie('loggedin', 1);
+//                echo "<br>Logged in!";
             }
             else {
                 echo "<br>Invalid username or password.";
             }
             mysqli_free_result($result);
+            header("Location: http://www.metropolis-general.com/portal.php");
+            die();
         }
     }
 ?>        
