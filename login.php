@@ -1,6 +1,5 @@
 <?php 
     include 'db.php'; 
-    session_start();
 ?>
 
 <html>
@@ -30,11 +29,9 @@ Forget your password? Click <a href="change_password.php">here</a>.<br>
             $rowcount = mysqli_num_rows($result);
             if ($rowcount > 0) {
                 $row = mysqli_fetch_row($result);
+                session_start();
                 $_SESSION['id'] = $row[0];
                 $_SESSION['loggedin'] = 1;
-//                setcookie('id', $row[0]);
-//                setcookie('loggedin', 1);
-//                echo "<br>Logged in!";
             }
             else {
                 echo "<br>Invalid username or password.";
