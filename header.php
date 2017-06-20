@@ -1,7 +1,31 @@
 <?php
+    $db = mysqli_connect('localhost', 'root', '', 'portal');
+    if (!$db) {
+        die("Header: Could not connect to database: " . 
+            mysqli_connect_error($db));
+    }
+    session_start();
+
     $portalLink = "<a href='portal.php'>Records</a> ";
     $settingLink = "<a href='settings.php'>Account Settings</a> ";
-    $userMgmtLink = "<a href='manage.php'>Manage Users</a> ";
+
+    $queryString = "SELECT admin FROM users WHERE id='" . $_SESSION['id'] .
+        "'";
+    $query = mysqli_query($db, $queryString);
+
+    if (!$query) {
+        die("Header: Couldn't determine admin status from db: " . 
+            mysqli_error($db));
+    }
+
+    $row = mysqli_fetch_row($query);
+    if ($row[0] == 1) {        
+        $userMgmtLink = "<a href='manage.php'>Manage Users</a> ";
+    }
+    else {
+        $userMgmtLink = " ";
+    }
+
     $newRecordLink = "<a href='new_record.php'>New Patient</a> ";
     $logOutLink = "<a href='logout.php'>Log Out</a>";
     $startDiv = "<div style='text-align:center'>";

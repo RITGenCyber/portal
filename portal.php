@@ -9,6 +9,8 @@
 
     include "header.php";
 
+    session_start();
+
     if (isset($_GET) && !empty($_GET['id'])) {
         $queryString = "DELETE FROM patients WHERE id='" . $_GET['id'] . "'";
         $query = mysqli_query($db, $queryString);
@@ -39,10 +41,16 @@
             echo "<td>" . $row['birthDate'] . "</td>";
             echo "<td>" . $row['notes'] . "</td>";
             echo "<td><a href=modify.php?id=" . $row['id'] . ">Edit Record</a>";
-            echo "<td><a onClick=\"javascript: " . 
-                "return confirm('Are you sure you want to delete this " .
-                "record?');\" href=portal.php?action=delete&id=" . $row['id'] .
-                ">Delete Record</a>";
+            $queryString = "SELECT admin FROM users WHERE id='" . 
+                $_SESSION['id'] . "'";
+            $query = mysqli_query($db, $queryString);
+            $adminRow = mysqli_fetch_row($query);
+            if ($adminRow[0] == "1") {
+                echo "<td><a onClick=\"javascript: " . 
+                    "return confirm('Are you sure you want to delete this " .
+                    "record?');\" href=portal.php?action=delete&id=" . 
+                    $row['id'] . ">Delete Record</a>";
+            }
         }
         echo "</table></div>";
     }          
