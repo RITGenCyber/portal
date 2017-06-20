@@ -6,6 +6,7 @@
 <?php
     require_once "db.php";
     include "header.php";
+    session_start();
 ?>
 
 <br><div style="text-align: center">
