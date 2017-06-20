@@ -30,7 +30,7 @@
             echo "<td>" . $row['gender'] . "</td>";
             echo "<td>" . $row['birthDate'] . "</td>";
             echo "<td>" . $row['notes'] . "</td>";
-            echo "<td><a href=modify.php?id=" . $row['id'] . ">Edit Notes</a>";
+            echo "<td><a href=modify.php?id=" . $row['id'] . ">Edit Record</a>";
         }
         echo "</table></div>";
     }          
