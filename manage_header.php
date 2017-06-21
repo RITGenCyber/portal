@@ -19,8 +19,10 @@
             printf("%s %s", $startDiv, $managementLink);
             printf("%s", $newUserLink);
             printf("%s %s", "<strong>Database Management</strong>", $endDiv);
+            break;
         default:
             printf("%s %s", $startDiv, $managementLink);
-            printf("%s %s", $newUserLink, $endDiv);
+            printf("%s", $newUserLink);
+            printf("%s %s", $databaseMgmtLink, $endDiv);
     }
 ?>
