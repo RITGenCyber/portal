@@ -14,9 +14,20 @@
                 $dateString = date("ymd_His");
                 $filename = "db_dump_" . $dateString . ".sql";
             }
-            $command = "mysqldump --user=root portal > " .
-                "/var/www/html/backups/" . $filename;
+            $command = "mysqldump --user root --add-drop-database " .
+                "portal > /var/www/html/backups/" . $filename;
             shell_exec($command);
+        }
+        else if (isset($_POST['restore'])) {
+            if (empty($_POST['filename'])) {
+                echo "Error: Please specify filename to restore from.";
+            }
+            else {
+                $filename = "/var/www/html/backups/" . $_POST['filename'];
+                shell_exec("mysqladmin -u root -f drop portal");
+                shell_exec("mysqladmin -u root -f create portal");
+                shell_exec("mysql -u root portal < " . $filename);
+            }
         }
     }
 ?>
