@@ -20,7 +20,7 @@
 
     $row = mysqli_fetch_row($query);
     if ($row[0] == 1) {        
-        $userMgmtLink = "<a href='manage.php'>Manage Users</a> ";
+        $userMgmtLink = "<a href='manage.php'>Admin Panel</a> ";
     }
     else {
         $userMgmtLink = " ";
