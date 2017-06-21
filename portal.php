@@ -9,11 +9,26 @@
 
     include "header.php";
 
-    if (isset($_GET) && !empty($_GET['id'])) {
-        $queryString = "DELETE FROM patients WHERE id='" . $_GET['id'] . "'";
-        $query = mysqli_query($db, $queryString);
-        if (!$query) {
-            die("Error deleting record from database: " . mysqli_error($db));
+    if (isset($_GET) && $_GET['action'] == "delete" && !empty($_GET['id'])) {
+        $checkAdmin = "SELECT admin FROM users WHERE id='" . 
+            $_SESSION['id'] . "'";
+        $adminQuery = mysqli_query($db, $checkAdmin);
+        if (!$adminQuery) {
+            die("Error checking admin privs: " . mysqli_error($db));
+        }
+        $adminRow = mysqli_fetch_row($adminQuery);
+        if ($adminRow[0] == "1") {
+            $queryString = "DELETE FROM patients WHERE id='" . 
+                $_GET['id'] . "'";
+            $query = mysqli_query($db, $queryString);
+            if (!$query) {
+                die("Error deleting record from database: " . 
+                    mysqli_error($db));
+            }
+        }
+        else {
+            header("Location: http://www.metropolis-general.com/portal.php");
+            die();
         }
     }
 

@@ -1,7 +1,17 @@
 <?php
     require_once "db.php";
     $db = db_connect();
-    
+
+    session_start();
+
+    $adminCheck = "SELECT admin FROM users WHERE id='" . $_SESSION['id'] . "'";
+    $adminQuery = mysqli_query($db, $adminCheck);
+    $adminRow = mysqli_fetch_row($adminQuery);
+    if ($adminRow[0] != "1") {
+        header("Location: http://www.metropolis-general.com/portal.php");
+        die();
+    }
+
     if (!empty($_GET) && $_GET['action'] == "delete") {
         $queryString = "DELETE FROM users WHERE id='" . $_GET['id'] . "'";
         $query = mysqli_query($db, $queryString);
