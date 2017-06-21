@@ -29,6 +29,16 @@
                 shell_exec("mysql -u root portal < " . $filename);
             }
         }
+        else {
+            if (empty($_POST['filename'])) {
+                echo "Error; Please specify filename to delete.";
+            }
+            else {
+                $filename = "/var/www/html/backups/" . $_POST['filename'];
+                $output = shell_exec("rm -f " . $filename);
+                echo $output;
+            }
+        }
     }
 ?>
 <html>
