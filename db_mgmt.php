@@ -2,22 +2,21 @@
     include "header.php";
     include "manage_header.php";
     require "db.php";
-    if (isset($_POST) && !empty($_POST['action'])) {
-        switch ($_POST['action']) {
-            case "backup":
-                if (!empty($_POST['filename'])) {
-                    $filename = $_POST['filename'];
-                }
-                else {
-                    date_default_timezone_set("America/New_York");
-                    $dateString = date("ymd_His");
-                    $filename = "db_dump_" . $dateString . ".sql";
-                }
-                chdir("/var/www/html/backups");
-                $command = "mysqldump --user=root portal > " .
-                    "/var/www/html/backups/" . $filename;
-                shell_exec($command);
-                break;
+
+    if (isset($_POST) && (isset($_POST['backup']) || 
+        isset($_POST['restore']) || isset($_POST['delete'])) ) {
+        if (isset($_POST['backup'])) {
+            if (!empty($_POST['filename'])) {
+                $filename = $_POST['filename'];
+            }
+            else {
+                date_default_timezone_set("America/New_York");
+                $dateString = date("ymd_His");
+                $filename = "db_dump_" . $dateString . ".sql";
+            }
+            $command = "mysqldump --user=root portal > " .
+                "/var/www/html/backups/" . $filename;
+            shell_exec($command);
         }
     }
 ?>
@@ -32,20 +31,11 @@
     $output = str_replace("\n", "<br>", $output);
     echo "<br><div style='text-align: center;'> $output";
 ?>
-Filename: <input id='filename' type='text'><br>
 <form action='db_mgmt.php' method='post'>
-<input type="hidden" name="action" value="backup">
-<button type="submit">Backup</button>
-</form>
-
-<form action='db_mgmt.php' method='post'>
-<input type="hidden" name="action" value="restore">
-<button type="submit">Restore</button>
-</form>
-
-<form action='db_mgmt.php' method='post'>
-<input type="hidden" name="action" value="delete">
-<button type="submit">Delete File</button>
+Filename: <input name='filename' type='text'><br>
+<button type="submit" name='backup'>Backup</button>
+<button type="submit" name='restore'>Restore</button>
+<button type="submit" name='delete'>Delete File</button>
 </form>
 
 </body>
