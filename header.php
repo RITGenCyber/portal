@@ -4,7 +4,13 @@
         die("Header: Could not connect to database: " . 
             mysqli_connect_error($db));
     }
+
     session_start();
+
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0) {
+        header("Location: http://www.metropolis-general.com/login.php");
+        die();
+    }
 
     $portalLink = "<a href='portal.php'>Records</a> ";
     $settingLink = "<a href='settings.php'>Account Settings</a> ";
