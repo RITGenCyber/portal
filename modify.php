@@ -47,7 +47,7 @@
         global $db;
         if (isset($new) && !empty($new) && $new != $original) {
             $queryString = "UPDATE patients SET " . $field . "=" . "'" . 
-             $new . "'" . " WHERE id =" . $_SESSION['id'];
+             $new . "'" . " WHERE id =" . $_POST['id'];
             $query = mysqli_query($db, $queryString);
             if (!$query) {
                 echo "Error querying database: " . mysqli_error($db);
@@ -155,7 +155,7 @@
 
     echo "Notes: <textarea name='notes' cols='50' rows='20'>" . 
         $notes . "</textarea><br>";
-
+    echo "<input type='hidden' value='" . $_GET['id'] . "' name='id'>";
     echo "<input type='submit' value='Submit' name='submit'>";
 ?>
 </form>
